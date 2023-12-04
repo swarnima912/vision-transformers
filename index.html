@@ -1,15 +1,26 @@
 <!doctype html>
 <html lang="en">
 <head>
-<title>Your Project Name</title>
-<meta property="og:title" content=Your Project Name" />
-<meta name="twitter:title" content="Your Project Name" />
+<title>Vision Transformers</title>
+<meta property="og:title" content="Vision Transformers" />
+<meta name="twitter:title" content="Vision Transformers" />
 <meta name="description" content="Your project about your cool topic described right here." />
 <meta property="og:description" content="Your project about your cool topic described right here." />
 <meta name="twitter:description" content="Your project about your cool topic described right here." />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary" /> 
 <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+      .grid-container {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 20px;
+      }
+
+      .grid-item {
+            text-align: center;
+      }
+  </style>
 <!-- bootstrap for mobile-friendly layout -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -22,7 +33,7 @@
 <div class="nd-pageheader">
  <div class="container">
  <h1 class="lead">
- <nobr class="widenobr">Your Project Name</nobr>
+ <nobr class="widenobr">Vision Transformers</nobr>
  <nobr class="widenobr">For CS 7150</nobr>
  </h1>
  </div>
@@ -31,22 +42,72 @@
 <div class="container">
 <div class="row">
 <div class="col justify-content-center text-center">
-<h2>An Analysis of [papername]</h2>
-<p>Describe the paper and the big question about it that interests you.</p>
+<h2>An Analysis of An Image is worth 16X16 Words: Transformers for image recognition at scale</h2>
+<p>The groundbreaking paper titled "An Image is Worth 16x16 Words" represents a significant advancement in computer vision research. Through the introduction of the Vision Transformer (ViT), an innovative application of the Transformer architecture, the authors have redefined the landscape of image recognition. This departure from the conventional utilization of convolutional neural networks (CNNs) marks a paradigm shift, challenging the longstanding dominance of CNNs in the field. The study not only showcases the ViT's capacity to achieve state-of-the-art results in image classification tasks but also emphasizes its efficiency and scalability in comparison to traditional CNNs. This finding unveils new possibilities for advancing computer vision and underscores the transformative potential of harnessing Transformer models beyond natural language processing, extending their impact across diverse domains.</p>
 </div>
 </div>
 <div class="row">
 <div class="col">
 
-<h2>Literature Review; Biography; Social Impact; Industry Applications; Follow-on Research; and Peer-Review</h2>
+<h2>Introduction</h2>
+<p>
+In the realm of artificial intelligence and machine learning, the Transformer architecture has revolutionized natural language processing (NLP). However, its application in the field of computer vision has been relatively limited, primarily augmenting or partially substituting components in convolutional neural network (CNN) structures. This paper challenges this norm by demonstrating the efficacy of a pure Transformer model applied directly to sequences of image patches for image classification tasks. This approach deviates from the conventional reliance on CNNs, suggesting that Transformers alone can be highly effective in understanding and processing visual data.
+</p>
+<p>
+The study explores the application of a standard Transformer, with minimal modifications, to image recognition. In a methodology inspired by NLP, the paper treats image patches akin to tokens in text processing, creating a direct parallel between the two domains. Although initial results on mid-sized datasets like ImageNet showed modest performance compared to comparable CNNs, the research reveals a significant shift when these Transformer models are trained on larger datasets. This pivot underscores a key finding: with sufficient training data, the Transformer's performance surpasses the ingrained inductive biases of CNNs, such as translation equivariance and locality, which have traditionally been deemed essential for effective image recognition.
+</p> 
+<p>
+The Vision Transformer (ViT), as developed in this research, demonstrates remarkable results when pre-trained on extensive datasets. The model achieves state-of-the-art accuracy across various image recognition benchmarks, including ImageNet, CIFAR-100, and the VTAB suite of tasks. This success story of ViT not only heralds a new era in computer vision but also reinforces the transformative potential of large-scale training in overcoming the limitations of model architectures previously thought to be indispensable.  
+</p>  
 
+<h2>Literature Review</h2>
+This paper builds upon several key developments in the fields of natural language processing (NLP) and computer vision. The timeline of influential works leading up to this paper includes:
+<p>
+  In the landscape of machine learning, the Transformer model, initially introduced for machine translation by Vaswani et al. in 2017, has become a pivotal architecture, especially in natural language processing (NLP). Its adoption led to transformative models like BERT, introduced by Devlin et al. in 2019, which utilized a self-supervised pre-training approach that cemented Transformers' status as a potent tool for a wide array of NLP tasks. The pre-training and fine-tuning paradigm introduced in these works demonstrated that large-scale data processing could significantly enhance the performance of Transformer-based models.
+</p>
+<p>
+  However, the direct application of Transformers to the domain of computer vision has been challenged by the quadratic computational cost associated with self-attention, which scales poorly with the increase in the number of pixels. Early efforts to incorporate self-attention in image processing, as seen in the work of Parmar et al. in 2018, and subsequent models aimed to apply self-attention within local neighborhoods as a means to constrain computational demands. These adaptations aimed to retain some of the benefits of self-attention while mitigating the overhead when dealing with the high dimensionality of image data. Despite these advancements, efficiently scaling such models on modern hardware accelerators remained a complex engineering challenge.
+</p>
+<p>
+  A variety of approaches have been explored to integrate the benefits of self-attention and Transformers within the image recognition landscape. Innovations such as Sparse Transformers by Child et al. in 2019 introduced scalable approximations to global self-attention, making it feasible to apply the Transformer architecture to images. Further explorations by Weissenborn et al. in 2019 and others looked into varying block sizes and even axial attention as methods to scale attention mechanisms for image data. While these specialized architectures yielded promising results in computer vision tasks, they often required intricate engineering to be effectively implemented on hardware accelerators.
+</p>
+<p>
+  Building upon this context, the work of Cordonnier et al. in 2020 proposed a model that utilized a full self-attention mechanism on 2x2 pixel patches from images, showcasing a direction similar to the Vision Transformer (ViT) but limited by small patch sizes and lower resolution images. The current paper distinguishes itself by demonstrating that a vanilla Transformer, when pre-trained on a large-scale dataset, can outperform state-of-the-art convolutional networks without such limitations. This advancement in applying Transformers to medium-resolution images, as well as the method's simplicity and efficiency on hardware accelerators, represents a significant leap forward. The Vision Transformer (ViT) marks a paradigm shift, reinforcing the notion that when it comes to machine learning architectures, scale can sometimes outweigh the benefits of inductive biases present in models like CNNs. This paper's findings add to a growing body of work that investigates the scaling of image recognition models beyond the standard ImageNet dataset, utilizing large-scale datasets to achieve groundbreaking results in image classification tasks.
+</p>
+
+<h2>Biography</h2>
+<div class="grid-container">
+  <div class="grid-item">
+      <img src="image1.jpg" alt="Image 1">
+      <p>Information about Image 1</p>
+  </div>
+  <div class="grid-item">
+      <img src="image2.jpg" alt="Image 2">
+      <p>Information about Image 2</p>
+  </div>
+  <div class="grid-item">
+      <img src="image3.jpg" alt="Image 3">
+      <p>Information about Image 3</p>
+  </div>
+  <div class="grid-item">
+      <img src="image4.jpg" alt="Image 4">
+      <p>Information about Image 4</p>
+  </div>
+</div>
+
+
+<h2>Main Concept</h2>
+<h2>Social Impact</h2>
+<h2>Industry Applications</h2>
+<h2>Follow-on Research</h2>
+<h2>Peer-Review</h2>
 <p>Just as we have done in the role-playing exercise, analyze the paper from all perspectives.
 </p>
 
 <p>Optionally, in addition to a reading-based analysis, implement the ideas of the paper in code, and report on your findings.
 </p>
 
-<h3>References</h3>
+<h2>References</h2>
 
 <p><a name="bottou-1990">[1]</a> <a href="https://papers.baulab.info/Bottou-1990.pdf"
   >L&eacute;on Bottou and Patrick Gallinari.
@@ -56,7 +117,7 @@
 
 <h2>Team Members</h2>
                                                    
-<p>Make sure to list here is who is on the team.</p>
+<p>Rutuja Shah, Swarnima Deshmukh, Dachuan Zhang</p>
 
   
 </div><!--col-->
