@@ -240,6 +240,45 @@ This paper builds upon several key developments in the fields of natural languag
 
 <h2>Main Concept</h2>
 
+<img src="images/ViT.jpeg", alt = "ViT" style="width: auto; height: auto; max-width: 100%; max-height: 100%;">
+<p>
+  On the left side of the figure above we see details on how the images are processed and fed into the encoder  First, we see an image being split into fixed-size patches. These patches are then linearly embedded, akin to how words are embedded in NLP tasks, effectively converting each patch into a flat vector of features. Along with these patch embeddings, positional embeddings are added to each patch vector to retain the positional information that is inherently lost during the flattening process. This is crucial as it allows the model to maintain the spatial context of each patch - information about where each patch was located in the original image.
+  </p>
+  <p>
+  A special token, referred to as the "classification token" (0*), is prepended to the sequence of embedded patches. This token is used to aggregate information across the patches and ultimately output the class prediction for the image after being processed through the Transformer.
+  </p>
+  <p>
+  On the right side of the image above we see the overall architecture of the encoder. The encoder is composed of layers of Multi-Head Attention and Multilayer Perceptron (MLP) blocks, each followed by normalization (Norm). The Muti-Head Attention mechanism allows the model to focus on different parts of the image simultaneously, analogous to how in NLP, attention mechanisms let the model focus on different words within a sentence. The MLP contains feed-forward neural networks that process the sequence further. Details for each component of the encoder operations  can be summarized as follows:
+  </p>
+  
+  <ul>
+  <li> Multi-Head Attention: This component allows the model to focus on different parts of the image simultaneously. It computes the attention for each patch by determining how much focus should be given to other parts of the image when encoding a particular patch. This is done multiple times in parallel (hence "multi-head"), allowing the model to capture various aspects of the image context in one go. </li>
+  <li> Norm: The "Norm" layers in the Transformer encoder refer to normalization processes. Specifically, in the context of Transformers, "Layer Normalization" is typically used. Layer normalization helps in stabilizing the learning process and accelerates the training of deep neural networks. By doing so, it ensures that the outputs from these components are scaled and shifted in a way that is more conducive to stable and efficient training. The normalization typically includes learnable parameters (a scale and shift) that allow the network to undo the normalization if that turns out to be beneficial for the learning process. </li>
+  <li> MLP: Apply a feed-forward neural network to each position separately and identically. </li>
+  <li> Add: In the diagram provided, the "+" signs denote the points where skip connections are used. These are the locations where the output of a layer (either the multi-head attention or the MLP) is added to its input before being passed through the next layer or normalization step. This process creates a direct path for the flow of information and gradients, which can help to address some of the challenges in training very deep networks. </li>
+  </ul>
+  
+  <p>
+  By alternating between computing attention and applying simple feed-forward networks, with each step followed by normalization, the Transformer encoder is able to process the image in a way that considers both the local patch information and the global image context. This leads to a rich and nuanced representation that is then used for image classification tasks.
+  </p>
+  
+  <p>
+  The number of rounds of multi-headed attention and MLP (also referred to as Transformer blocks or layers) before the network can make a classification depends on the specific architecture of the Vision Transformer (ViT) being used. The original Transformer model, as proposed by Vaswani et al. (2017), allows for stacking multiple such layers on top of each other. Each layer includes one round of multi-headed attention followed by an MLP block. In practice, the number of layers is a hyperparameter that can be tuned based on the complexity of the task and the size of the dataset. For instance, smaller datasets may require fewer layers to avoid overfitting, while larger datasets and more complex tasks can benefit from deeper architectures.
+  </p>
+  
+  <p>
+  The Transformer's architecture enables it to consider the entire image at once, as opposed to processing it piece-by-piece as in traditional convolutional neural networks (CNNs). This global processing capability allows for more complex inter-patch relationships and dependencies to be learned, which is particularly beneficial for image classification tasks. The output of the MLP head at the top is then used to classify the image into one of the classes, like "Bird," "Ball," "Car," etc
+  </p>
+  
+  <img src="images/Results.jpeg" alt="Attention Maps" style="width: auto; height: auto; max-width: 100%; max-height: 100%;">
+  
+  <p>
+  The diagram above shows visualizations known as attention maps from the Vision Transformer model. These maps illustrate how the model focuses on different parts of an image when making decisions. Imagine an image divided into many small squares (patches); the colors in each map show which of these squares the model pays most attention to. Warmer colors like red indicate high attention, meaning those parts are considered more important by the model for recognizing what’s in the image. Different parts of the figure represent different aspects the model looks at, such as edges, textures, or specific objects. This helps us understand what the model finds important in an image and why it makes certain decisions.
+  </p>
+  
+  <p>
+  The significant result here is that this transformer model, called Vision Transformer (ViT), not only performs well but, in many cases, outperforms the existing state-of-the-art CNNs on image classification tasks, especially when trained on large-scale datasets. This finding is groundbreaking because it challenges the conventional approach to image recognition and opens up new possibilities for how we can understand and process visual information using machine learning models.
+  </p>
 
 <h2>Social Impact</h2>
 <h4>Potential Positive Societal Impacts</h4>
@@ -278,18 +317,31 @@ Scenario: Automated Medical Imaging Diagnosis
 </ul>
 
 <h2>Follow-on Research</h2>
-<h2>Peer-Review</h2>
+<ul>
+  <li>
+    Scaling Vision Transformers : Attention-based neural networks such as the Vision Transformer (ViT) have recently attained state-of-the-art results on many computer vision benchmarks. Scale is a primary ingredient in attaining excellent results, therefore, understanding a model's scaling properties is a key to designing future generations effectively. While the laws for scaling Transformer language models have been studied, it is unknown how Vision Transformers scale. To address this, we scale ViT models and data, both up and down, and characterize the relationships between error rate, data, and compute. Along the way, we refine the architecture and training of ViT, reducing memory consumption and increasing accuracy of the resulting models. As a result, we successfully train a ViT model with two billion parameters, which attains a new state-of-the-art on ImageNet of 90.45% top-1 accuracy. The model also performs well for few-shot transfer, for example, reaching 84.86% top-1 accuracy on ImageNet with only 10 examples per class.
+  </li>
+  <li>
+    Swin Transformer: Hierarchical Vision Transformer using Shifted Windows : Swin Transformer: Hierarchical Vision Transformer using Shifted Windows
+    This paper presents a new vision Transformer, called Swin Transformer, that capably serves as a general-purpose backbone for computer vision. Challenges in adapting Transformer from language to vision arise from differences between the two domains, such as large variations in the scale of visual entities and the high resolution of pixels in images compared to words in text. To address these differences, we propose a hierarchical Transformer whose representation is computed with Shifted windows. The shifted windowing scheme brings greater efficiency by limiting self-attention computation to non-overlapping local windows while also allowing for cross-window connection. This hierarchical architecture has the flexibility to model at various scales and has linear computational complexity with respect to image size. These qualities of Swin Transformer make it compatible with a broad range of vision tasks, including image classification (87.3 top-1 accuracy on ImageNet-1K) and dense prediction tasks such as object detection (58.7 box AP and 51.1 mask AP on COCO test-dev) and semantic segmentation (53.5 mIoU on ADE20K val). Its performance surpasses the previous state-of-the-art by a large margin of +2.7 box AP and +2.6 mask AP on COCO, and +3.2 mIoU on ADE20K, demonstrating the potential of Transformer-based models as vision backbones. The hierarchical design and the shifted window approach also prove beneficial for all-MLP architectures.     
+  </li>
+</ul>
 
 <p>Optionally, in addition to a reading-based analysis, implement the ideas of the paper in code, and report on your findings.
 </p>
 
 <h2>References</h2>
 
-<p><a name="bottou-1990">[1]</a> <a href="https://papers.baulab.info/Bottou-1990.pdf"
-  >L&eacute;on Bottou and Patrick Gallinari.
-  <em>A framework for the cooperation of learning algorithms.</em></a>
-  Advances in neural information processing systems 3 (1990).
+<p>
+  <a name="Vision transformers (ViT)">[1]</a> 
+  <a href="https://arxiv.org/abs/2010.11929">
+    Alexey Dosovitskiy, Lucas Beyer, Alexander Kolesnikov, Dirk Weissenborn, Xiaohua Zhai, Thomas Unterthiner, Mostafa Dehghani, Matthias Minderer, Georg Heigold, Sylvain Gelly, Jakob Uszkoreit, and Neil Houlsby.
+    <em>An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale.</em>
+  </a>
+  2021. arXiv:2010.11929 [cs.CV].
 </p>
+
+
 
 <h2>Team Members</h2>
                                                    
