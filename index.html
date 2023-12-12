@@ -283,47 +283,55 @@ The Vision Transformer (ViT), as developed in this research, demonstrates remark
 <h2>Social Impact</h2>
 <h4>Potential Positive Societal Impacts</h4>
 <ul>
-<li>Benefits to Healthcare: Improved image recognition models could enhance medical imaging analysis, aiding in early detection and diagnosis of diseases.</li>
-<li>Enhanced Security Systems: More accurate image recognition can improve surveillance and security systems, potentially reducing crime rates or threats.</li>
+<li><b>Benefits to Healthcare:</b> Improved image recognition models could enhance medical imaging analysis, aiding in early detection and diagnosis of diseases.</li>
+<li><b>Enhanced Security Systems:</b> More accurate image recognition can improve surveillance and security systems, potentially reducing crime rates or threats.</li>
+<li><b>Advancements in Autonomous Vehicles:</b>   Better image recognition models could contribute to the safety and reliability of autonomous vehicles, enhancing navigation and obstacle detection.</li>
 </ul>
 
 <h4>Potential Negative Societal Impacts</h4>
 <ul>
-<li>Privacy Concerns: Enhanced image recognition technology might lead to increased surveillance and data privacy issues. </li>
-<li>High Energy Consumption: Training advanced AI models often requires significant computational resources, contributing to higher energy consumption and environmental impact.</li>
+<li><b>Privacy Concerns:</b> Enhanced image recognition technology might lead to increased surveillance and data privacy issues. </li>
+<li><b>High Energy Consumption:</b> Training advanced AI models often requires significant computational resources, contributing to higher energy consumption and environmental impact.</li>
 </ul>
 
 <h4>Recommendations for Policymakers</h4>
 <ul>
-<li>Regulate Use of AI in Surveillance: Implement guidelines to balance technological advancements in image recognition with the right to privacy and personal data protection. </li>
-<li>Promote Sustainable AI Development: Encourage research and usage of energy-efficient algorithms and infrastructure in AI development. </li>
+<li><b>Regulate Use of AI in Surveillance:</b> Implement guidelines to balance technological advancements in image recognition with the right to privacy and personal data protection. </li>
+<li><b>Promote Sustainable AI Development:</b> Encourage research and usage of energy-efficient algorithms and infrastructure in AI development. </li>
 </ul>
 
 <h2>Industry Applications</h2>
 <h4>Real-World Problem/Scenario</h4>
-Scenario: Automated Medical Imaging Diagnosis
+<b>Scenario: Automated Medical Imaging Diagnosis</b>
 <ul>
-<li>Application: The method can be applied to analyze medical images, such as X-rays, MRIs, or CT scans, for automated disease detection and diagnosis. </li>
-<li>Benefits: Enhances diagnostic accuracy, reduces the workload on radiologists, and potentially identifies diseases that are difficult to detect manually. </li>
-<li>Challenges: Ensuring the reliability of diagnoses, handling diverse and complex medical data, and integrating with existing healthcare systems. </li>
-</ul>
-
-<h4>Potential Challenges or Considerations</h4>
-<ul>
-  <li>Data Privacy and Security: In industries dealing with sensitive data (e.g., healthcare), ensuring the privacy and security of the data processed by these AI models is crucial. </li>
-  <li>Computational Resources: The transformer models may require significant computational power for training and inference, which could be a barrier for small and medium-sized businesses.</li>
-  <li>Integration with Existing Systems: Aligning this new method with existing systems and workflows in various industries can be complex and resource-intensive. </li>
-  <li>Bias and Generalization: Models trained on limited or biased datasets may not generalize well across diverse real-world scenarios, leading to inaccurate or unfair outcomes. </li>
+<li><b>Application:</b> Vision Transformers (ViTs) can be employed to scrutinize medical imagery such as X-rays, MRIs, or CT scans, for the purpose of automating disease identification and diagnosis. This automation would fasten the process and help identify diseases that are difficult to detect manually.  ViTs are particularly apt for this task due to their ability to process image data in patches and learn contextual relationships, which is crucial in identifying abnormalities in medical images that may signify various health conditions. </li>
+<li><b>Benefits:</b> Utilizing ViTs in medical diagnostics can lead to heightened accuracy in disease detection, which is particularly beneficial given the vast amounts of data typically present in the medical field. This volume of data plays to the strength of ViTs, as their performance continues to improve with increased data availability, making them more suitable as the dataset grows. Additionally, the automation of image analysis could significantly reduce the burden on healthcare professionals, allowing for quicker and potentially more accurate diagnoses. </li>
+<li><b>Challenges:</b> However, the deployment of ViTs in a healthcare setting comes with its own set of challenges. Notably, the requirement for substantial computational resources to train and run ViTs could pose a barrier, as such resources may not be readily available in many medical facilities. The maintenance and operational costs associated with high-performance computing could also be prohibitive. Furthermore, ensuring the model's reliability across diverse, real-world medical data and its seamless integration into existing medical IT infrastructures remains a critical consideration for practical implementation. Lastly, there is the issue of bias and generalization. ViTs trained on limited or non-representative datasets may not perform well across different or broader medical scenarios, potentially leading to inaccurate diagnoses or perpetuating biases. Ensuring that models are trained on diverse and comprehensive datasets is critical to their success and ethical application in real-world medical diagnosis. </li>
 </ul>
 
 <h2>Follow-on Research</h2>
+<h4>Scaling Vision Transformers </h4>
 <ul>
   <li>
-    Scaling Vision Transformers : Attention-based neural networks such as the Vision Transformer (ViT) have recently attained state-of-the-art results on many computer vision benchmarks. Scale is a primary ingredient in attaining excellent results, therefore, understanding a model's scaling properties is a key to designing future generations effectively. While the laws for scaling Transformer language models have been studied, it is unknown how Vision Transformers scale. To address this, we scale ViT models and data, both up and down, and characterize the relationships between error rate, data, and compute. Along the way, we refine the architecture and training of ViT, reducing memory consumption and increasing accuracy of the resulting models. As a result, we successfully train a ViT model with two billion parameters, which attains a new state-of-the-art on ImageNet of 90.45% top-1 accuracy. The model also performs well for few-shot transfer, for example, reaching 84.86% top-1 accuracy on ImageNet with only 10 examples per class.
+    <b>Gap Addressed by "Scaling Vision Transformers":</b> Enhances computational efficiency and practical applicability of Vision Transformers, crucial for large-scale image datasets and high-resolution applications, a gap not extensively covered in the original paper.  
   </li>
   <li>
-    Swin Transformer: Hierarchical Vision Transformer using Shifted Windows : Swin Transformer: Hierarchical Vision Transformer using Shifted Windows
-    This paper presents a new vision Transformer, called Swin Transformer, that capably serves as a general-purpose backbone for computer vision. Challenges in adapting Transformer from language to vision arise from differences between the two domains, such as large variations in the scale of visual entities and the high resolution of pixels in images compared to words in text. To address these differences, we propose a hierarchical Transformer whose representation is computed with Shifted windows. The shifted windowing scheme brings greater efficiency by limiting self-attention computation to non-overlapping local windows while also allowing for cross-window connection. This hierarchical architecture has the flexibility to model at various scales and has linear computational complexity with respect to image size. These qualities of Swin Transformer make it compatible with a broad range of vision tasks, including image classification (87.3 top-1 accuracy on ImageNet-1K) and dense prediction tasks such as object detection (58.7 box AP and 51.1 mask AP on COCO test-dev) and semantic segmentation (53.5 mIoU on ADE20K val). Its performance surpasses the previous state-of-the-art by a large margin of +2.7 box AP and +2.6 mask AP on COCO, and +3.2 mIoU on ADE20K, demonstrating the potential of Transformer-based models as vision backbones. The hierarchical design and the shifted window approach also prove beneficial for all-MLP architectures.     
+    <b>Necessity of "Scaling Vision Transformers": </b>Vital for broadening the use of Vision Transformers in diverse real-world scenarios and advancing the state-of-the-art in image recognition and computer vision technology.
+  </li>
+  <li>
+    <b>Methodology Overview of "Scaling Vision Transformers":</b> Incorporates architectural innovations, adaptive processing techniques, extensive performance testing across varied datasets, utilization of advanced hardware accelerators, and interdisciplinary collaboration to optimize Vision Transformers for scalability and efficiency.
+  </li>
+</ul>
+<ul>
+<h4>Swin Transformer: Hierarchical Vision Transformer using Shifted Windows</h4>
+  <li>
+    <b>
+  </li>
+  <li>
+    <b>
+  </li>
+  <li>
+    <b>
   </li>
 </ul>
 
