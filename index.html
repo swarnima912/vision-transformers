@@ -242,50 +242,43 @@ The Vision Transformer (ViT), as developed in this research, demonstrates remark
 </div>
 
 
-<h2>Main Concept</h2>
+<h2>Methodology</h2>
 
 <img src="images/ViT.jpeg", alt = "ViT" style="width: auto; height: auto; max-width: 100%; max-height: 100%;">
 <p>
-  On the left side of the figure above we see details on how the images are processed and fed into the encoder  First, we see an image being split into fixed-size patches. These patches are then linearly embedded, akin to how words are embedded in NLP tasks, effectively converting each patch into a flat vector of features. Along with these patch embeddings, positional embeddings are added to each patch vector to retain the positional information that is inherently lost during the flattening process. This is crucial as it allows the model to maintain the spatial context of each patch - information about where each patch was located in the original image.
-  </p>
+  Let us now look at the architecture of the transformer model for image classification. On the left side of the figure above, we see details on how the images are processed and fed into the encoder. First, we see an image being split into fixed-size patches. These patches are then linearly embedded, akin to how words are embedded in NLP tasks, effectively converting each patch into a flat vector of features. Along with these patch embeddings, positional embeddings are added to each patch vector to retain the positional information that is inherently lost during the flattening process. This is crucial as it allows the model to maintain the spatial context of each patch - information about where each patch was located in the original image. A special token, referred to as the "classification token" (0*), is prepended to the sequence of embedded patches. This token is used to aggregate information across the patches and ultimately output the class prediction for the image after being processed through the Transformer.  </p>
   <p>
-  A special token, referred to as the "classification token" (0*), is prepended to the sequence of embedded patches. This token is used to aggregate information across the patches and ultimately output the class prediction for the image after being processed through the Transformer.
-  </p>
-  <p>
-  On the right side of the image above we see the overall architecture of the encoder. The encoder is composed of layers of Multi-Head Attention and Multilayer Perceptron (MLP) blocks, each followed by normalization (Norm). The Muti-Head Attention mechanism allows the model to focus on different parts of the image simultaneously, analogous to how in NLP, attention mechanisms let the model focus on different words within a sentence. The MLP contains feed-forward neural networks that process the sequence further. Details for each component of the encoder operations  can be summarized as follows:
+    On the right side of the image above we see the overall architecture of the encoder. The encoder is composed of layers of Multi-Head Attention and Multilayer Perceptron (MLP) blocks, each followed by normalization (Norm). The Muti-Head Attention mechanism allows the model to focus on different parts of the image simultaneously, analogous to how in NLP, attention mechanisms let the model focus on different words within a sentence. The MLP contains feed-forward neural networks that process the sequence further. Details for each component of the encoder can be summarized as follows:
   </p>
   
   <ul>
-  <li> Multi-Head Attention: This component allows the model to focus on different parts of the image simultaneously. It computes the attention for each patch by determining how much focus should be given to other parts of the image when encoding a particular patch. This is done multiple times in parallel (hence "multi-head"), allowing the model to capture various aspects of the image context in one go. </li>
-  <li> Norm: The "Norm" layers in the Transformer encoder refer to normalization processes. Specifically, in the context of Transformers, "Layer Normalization" is typically used. Layer normalization helps in stabilizing the learning process and accelerates the training of deep neural networks. By doing so, it ensures that the outputs from these components are scaled and shifted in a way that is more conducive to stable and efficient training. The normalization typically includes learnable parameters (a scale and shift) that allow the network to undo the normalization if that turns out to be beneficial for the learning process. </li>
-  <li> MLP: Apply a feed-forward neural network to each position separately and identically. </li>
-  <li> Add: In the diagram provided, the "+" signs denote the points where skip connections are used. These are the locations where the output of a layer (either the multi-head attention or the MLP) is added to its input before being passed through the next layer or normalization step. This process creates a direct path for the flow of information and gradients, which can help to address some of the challenges in training very deep networks. </li>
+  <li> <b>Multi-Head Attention:</b> This component allows the model to focus on different parts of the image simultaneously. It computes the attention for each patch by determining how much focus should be given to other parts of the image when encoding a particular patch. This is done multiple times in parallel (hence "multi-head"), allowing the model to capture various aspects of the image context in one go. </li>
+  <li> <b>Norm:</b> The "Norm" layers in the Transformer encoder refer to normalization processes. This layer normalization helps in stabilizing the learning process and accelerates the training of deep neural networks. Doing so ensures that the outputs from these components are scaled and shifted in a way that is more conducive to stable and efficient training.  </li>
+  <li> <b>MLP:</b> After the multi-head attention module processes the patch embeddings, accounting for the interactions between different patches, the MLP further processes this information. Each MLP block is essentially a small feed-forward neural network applied to each position separately and identically. This means that the same neural network is used for processing each patch embedding, ensuring consistency in processing across the image. </li>
+  <li> <b>Add:</b> In the diagram provided, the "+" signs denote the points where skip connections are used. These are the locations where the output of a layer (either the multi-head attention or the MLP) is added to its input before being passed through the next layer or normalization step. This process creates a direct path for the flow of information and gradients, which can help to address some of the challenges in training very deep networks. </li>
   </ul>
   
   <p>
-  By alternating between computing attention and applying simple feed-forward networks, with each step followed by normalization, the Transformer encoder is able to process the image in a way that considers both the local patch information and the global image context. This leads to a rich and nuanced representation that is then used for image classification tasks.
+    By alternating between computing attention and applying simple feed-forward networks, with each step followed by normalization, the Transformer encoder can process the image in a way that considers both the local patch information and the global image context. This leads to a rich and nuanced representation that is then used for image classification tasks.  
   </p>
-  
+
   <p>
-  The number of rounds of multi-headed attention and MLP (also referred to as Transformer blocks or layers) before the network can make a classification depends on the specific architecture of the Vision Transformer (ViT) being used. The original Transformer model, as proposed by Vaswani et al. (2017), allows for stacking multiple such layers on top of each other. Each layer includes one round of multi-headed attention followed by an MLP block. In practice, the number of layers is a hyperparameter that can be tuned based on the complexity of the task and the size of the dataset. For instance, smaller datasets may require fewer layers to avoid overfitting, while larger datasets and more complex tasks can benefit from deeper architectures.
+    The number of rounds of multi-headed attention and MLP (also referred to as Transformer blocks or layers), before the network can make a classification, depends on the specific architecture of the Vision Transformer (ViT) being used. The original Transformer model, as proposed by Vaswani et al. (2017), allows for stacking multiple such layers on top of each other. Each layer includes one round of multi-headed attention followed by an MLP block. In practice, the number of layers is a hyperparameter that can be tuned based on the complexity of the task and the size of the dataset. For instance, smaller datasets may require fewer layers to avoid overfitting, while larger datasets and more complex tasks can benefit from deeper architectures.  
   </p>
-  
+ 
   <p>
-  The Transformer's architecture enables it to consider the entire image at once, as opposed to processing it piece-by-piece as in traditional convolutional neural networks (CNNs). This global processing capability allows for more complex inter-patch relationships and dependencies to be learned, which is particularly beneficial for image classification tasks. The output of the MLP head at the top is then used to classify the image into one of the classes, like "Bird," "Ball," "Car," etc
+    The Transformer's architecture enables it to consider the entire image at once, as opposed to processing it piece-by-piece as in traditional convolutional neural networks (CNNs). This global processing capability allows for more complex inter-patch relationships and dependencies to be learned, which is particularly beneficial for image classification tasks. The output of the MLP head at the top is then used to classify the image into one of the classes, like "Bird," "Ball," "Car," etc.
   </p>
   
   <img src="images/Results.jpeg" alt="Results" style="width: auto; height: auto; max-width: 100%; max-height: 100%;">
   
   <p>
-  The diagram above shows visualizations known as attention maps from the Vision Transformer model. These maps illustrate how the model focuses on different parts of an image when making decisions. Imagine an image divided into many small squares (patches); the colors in each map show which of these squares the model pays most attention to. Warmer colors like red indicate high attention, meaning those parts are considered more important by the model for recognizing what’s in the image. Different parts of the figure represent different aspects the model looks at, such as edges, textures, or specific objects. This helps us understand what the model finds important in an image and why it makes certain decisions.
+    The left of the diagram above shows visualizations known as attention maps from the VIT model. These maps illustrate how the model focuses on different parts of an image when making decisions. The colors in each map show which patches the model pays the most attention to. Warmer colors like red indicate high attention, meaning those parts are considered more important by the model for recognizing what’s in the image. Different parts of the figure represent different aspects the model looks at, such as edges, textures, or specific objects.  The tiles in the center represent the cosine similarity of position embeddings, which is a measure of how closely related different patches are in terms of their position in the original image; the high similarity in color indicates that the model preserves spatial context through these embeddings. On the right, a scatter plot shows the mean attention distance across different layers of the network for one of 16 heads at one layer, which indicates how the model's attention mechanism focuses on various parts of the image at different stages of processing. 
   </p>
-  
+
   <div style="text-align: center;">
     <img src="images/Attention maps.png" alt="Attention Maps" style="width: auto; height: auto; max-width: 100%; max-height: 100%;">
   </div>
-  <p>
-  The significant result here is that this transformer model, called Vision Transformer (ViT), not only performs well but, in many cases, outperforms the existing state-of-the-art CNNs on image classification tasks, especially when trained on large-scale datasets. This finding is groundbreaking because it challenges the conventional approach to image recognition and opens up new possibilities for how we can understand and process visual information using machine learning models.
-  </p>
 
 <h2>Social Impact</h2>
 <h4>Potential Positive Societal Impacts</h4>
