@@ -62,8 +62,8 @@
 <div class="container">
 <div class="row">
 <div class="col justify-content-center text-center">
-<h2>An Analysis of An Image is worth 16X16 Words: Transformers for image recognition at scale</h2>
-<p>The groundbreaking paper titled "An Image is Worth 16x16 Words" represents a significant advancement in computer vision research. Through the introduction of the Vision Transformer (ViT), an innovative application of the Transformer architecture, the authors have redefined the landscape of image recognition. This departure from the conventional utilization of convolutional neural networks (CNNs) marks a paradigm shift, challenging the longstanding dominance of CNNs in the field. The study not only showcases the ViT's capacity to achieve state-of-the-art results in image classification tasks but also emphasizes its efficiency and scalability in comparison to traditional CNNs. This finding unveils new possibilities for advancing computer vision and underscores the transformative potential of harnessing Transformer models beyond natural language processing, extending their impact across diverse domains.</p>
+<h2>An Analysis of "An Image is worth 16X16 Words: Transformers for Image Recognition at Scale"</h2>
+<p><i>This groundbreaking paper represents a significant advancement in computer vision research. Through the introduction of the Vision Transformer (ViT), an innovative application of the Transformer architecture, the authors have redefined the landscape of image recognition. This departure from the conventional utilization of convolutional neural networks (CNNs) marks a paradigm shift, challenging the longstanding dominance of CNNs in the field. The study not only showcases the ViT's capacity to achieve state-of-the-art results in image classification tasks but also emphasizes its efficiency and scalability in comparison to traditional CNNs. This finding unveils new possibilities for advancing computer vision and underscores the transformative potential of harnessing Transformer models beyond natural language processing, extending their impact across diverse domains.</i></p> 
 </div>
 </div>
 <div class="row">
@@ -71,7 +71,7 @@
 
 <h2>Introduction</h2>
 <p>
-In the realm of artificial intelligence and machine learning, the Transformer architecture has revolutionized natural language processing (NLP). However, its application in the field of computer vision has been relatively limited, primarily augmenting or partially substituting components in convolutional neural network (CNN) structures. This paper challenges this norm by demonstrating the efficacy of a pure Transformer model applied directly to sequences of image patches for image classification tasks. This approach deviates from the conventional reliance on CNNs, suggesting that Transformers alone can be highly effective in understanding and processing visual data.
+In the realm of Artificial Intelligence and Machine Learning, the Transformer architecture has revolutionized Natural Language Processing (NLP). However, its application in the field of computer vision has been relatively limited, primarily augmenting or partially substituting components in convolutional neural network (CNN) structures. This paper challenges this norm by demonstrating the efficacy of a pure Transformer model applied directly to sequences of image patches for image classification tasks. This approach deviates from the conventional reliance on CNNs, suggesting that Transformers alone can be highly effective in understanding and processing visual data.
 </p>
 <p>
 The study explores the application of a standard Transformer, with minimal modifications, to image recognition. In a methodology inspired by NLP, the paper treats image patches akin to tokens in text processing, creating a direct parallel between the two domains. Although initial results on mid-sized datasets like ImageNet showed modest performance compared to comparable CNNs, the research reveals a significant shift when these Transformer models are trained on larger datasets. This pivot underscores a key finding: with sufficient training data, the Transformer's performance surpasses the ingrained inductive biases of CNNs, such as translation equivariance and locality, which have traditionally been deemed essential for effective image recognition.
@@ -81,156 +81,160 @@ The Vision Transformer (ViT), as developed in this research, demonstrates remark
 </p>  
 
 <h2>Literature Review</h2>
-This paper builds upon several key developments in the fields of natural language processing (NLP) and computer vision. The timeline of influential works leading up to this paper includes:
 <p>
-  In the landscape of machine learning, the Transformer model, initially introduced for machine translation by Vaswani et al. in 2017, has become a pivotal architecture, especially in natural language processing (NLP). Its adoption led to transformative models like BERT, introduced by Devlin et al. in 2019, which utilized a self-supervised pre-training approach that cemented Transformers' status as a potent tool for a wide array of NLP tasks. The pre-training and fine-tuning paradigm introduced in these works demonstrated that large-scale data processing could significantly enhance the performance of Transformer-based models.
+  Transformers, first introduced by Vaswani et al. in 2017 for machine translation, have revolutionized the field of natural language processing (NLP). Their impact was further solidified by models like BERT (Devlin et al., 2019), which employed self-supervised pre-training, demonstrating the efficacy of Transformers in handling diverse NLP tasks. The key to their success was found in the pre-training and fine-tuning paradigm, which highlighted the significance of large-scale data processing in enhancing the performance of Transformer-based models.
 </p>
 <p>
-  However, the direct application of Transformers to the domain of computer vision has been challenged by the quadratic computational cost associated with self-attention, which scales poorly with the increase in the number of pixels. Early efforts to incorporate self-attention in image processing, as seen in the work of Parmar et al. in 2018, and subsequent models aimed to apply self-attention within local neighborhoods as a means to constrain computational demands. These adaptations aimed to retain some of the benefits of self-attention while mitigating the overhead when dealing with the high dimensionality of image data. Despite these advancements, efficiently scaling such models on modern hardware accelerators remained a complex engineering challenge.
+  Adapting Transformers to computer vision, however, faced hurdles due to the quadratic computational cost of self-attention, especially as it poorly scales with an increase in pixel count. Early attempts, like Parmar et al. in 2018, focused on incorporating self-attention in localized image regions to manage computational demands. Subsequent innovations, such as Sparse Transformers by Child et al. (2019), and methods involving varying block sizes and axial attention, showed promise in computer vision but required complex engineering for effective implementation on hardware accelerators. 
 </p>
 <p>
-  A variety of approaches have been explored to integrate the benefits of self-attention and Transformers within the image recognition landscape. Innovations such as Sparse Transformers by Child et al. in 2019 introduced scalable approximations to global self-attention, making it feasible to apply the Transformer architecture to images. Further explorations by Weissenborn et al. in 2019 and others looked into varying block sizes and even axial attention as methods to scale attention mechanisms for image data. While these specialized architectures yielded promising results in computer vision tasks, they often required intricate engineering to be effectively implemented on hardware accelerators.
+  The field advanced significantly with the work of Cordonnier et al. in 2020, which applied full self-attention to 2x2 pixel patches, a precursor to the more comprehensive Vision Transformer (ViT). ViT, leveraging a standard Transformer pre-trained on large datasets, outperformed state-of-the-art convolutional networks. This breakthrough highlighted the potential of scaling Transformers for medium-resolution images, emphasizing simplicity and efficiency on hardware accelerators. The ViT's success challenges traditional beliefs in machine learning architecture, suggesting that scale might supersede inductive biases in models like CNNs. This research contributes to the ongoing exploration of scaling image recognition models, pushing the boundaries beyond conventional datasets like ImageNet and achieving groundbreaking results in image classification. 
 </p>
+
+<img src="images/Influence flower.png" alt="Influence Flower" style="width: auto; height: auto; max-width: 100%; max-height: 100%;">
+
 <p>
-  Building upon this context, the work of Cordonnier et al. in 2020 proposed a model that utilized a full self-attention mechanism on 2x2 pixel patches from images, showcasing a direction similar to the Vision Transformer (ViT) but limited by small patch sizes and lower resolution images. The current paper distinguishes itself by demonstrating that a vanilla Transformer, when pre-trained on a large-scale dataset, can outperform state-of-the-art convolutional networks without such limitations. This advancement in applying Transformers to medium-resolution images, as well as the method's simplicity and efficiency on hardware accelerators, represents a significant leap forward. The Vision Transformer (ViT) marks a paradigm shift, reinforcing the notion that when it comes to machine learning architectures, scale can sometimes outweigh the benefits of inductive biases present in models like CNNs. This paper's findings add to a growing body of work that investigates the scaling of image recognition models beyond the standard ImageNet dataset, utilizing large-scale datasets to achieve groundbreaking results in image classification tasks.
+  The Influence Flowers are generated from 2 matching papers (102 references and 1535 citations), from academic data as of December 2021.
+  Blue arcs denote incoming influence from the authors to the paper, with their thickness proportional to the number of references made.
+  Red arcs denote outgoing influence from the paper to the authors, with their thickness proportional to the number of citations received.
 </p>
 
 <h2>Biography</h2>
 <div class="grid-container">
   <div class="grid-item">
       <img src="images/authors/WhatsApp Image 2023-12-04 at 6.52.23 PM.jpeg" alt="Alexey Dosovitskiy">
-      <figcaption>Alexey Dosovitskiy</figcaption>
+      <figcaption style="font-weight: bold;"> Alexey Dosovitskiy</figcaption>
       <p class="info">  
         <ul>
-          <li>Educational Background: Received M.Sc. and Ph.D. degrees in mathematics (functional analysis) from Moscow State University in 2009 and 2012, respectively. </li>
-          <li>Where They Have Worked: Previously at the Intelligent Systems Laboratory, Intel, Munich, Germany, and the University of Freiburg. </li>
-          <li>Current Position: Working with Google. His research topics include convolutional neural networks and deep learning. </li>
+          <li><b>Education:</b> Received M.Sc. and Ph.D. degrees in mathematics (functional analysis) from Moscow State University in 2009 and 2012, respectively. </li>
+          <li><b>Work Experience:</b> Previously at the Intelligent Systems Laboratory, Intel, Munich, Germany, and the University of Freiburg. </li>
+          <li><b>Current Status:</b> Working with Google. His research topics include convolutional neural networks and deep learning. </li>
         </ul>
       </p>
   </div>
   <div class="grid-item">
     <img src="images/authors/WhatsApp Image 2023-12-04 at 6.52.50 PM.jpeg" alt="Lucas Beyer">
-    <figcaption>Lucas Beyer</figcaption>
+    <figcaption style="font-weight: bold;"> Lucas Beyer</figcaption>
     <p class="info">  
       <ul>
-        <li>Education: PhD in Computational Engineering Sciences at RWTH Aachen University.</li>
-        <li>Work Experience: AI engineer at Kindred AI, Student assistant at RWTH Aachen University. </li> 
-        <li>Current Status:Research engineer at Google. </li> 
+        <li><b>Education:</b>  PhD in Computational Engineering Sciences at RWTH Aachen University.</li>
+        <li><b>Work Experience:</b> AI engineer at Kindred AI, Student assistant at RWTH Aachen University. </li> 
+        <li><b>Current Status:</b>Research engineer at Google. </li> 
       </ul>
     </p>
   </div>
   <div class="grid-item">
     <img src="images/authors/WhatsApp Image 2023-12-04 at 6.54.41 PM.jpeg" alt="Alexander Kolesnikov">
-    <figcaption>Alexander Kolesnikov</figcaption>
+    <figcaption style="font-weight: bold;"> Alexander Kolesnikov</figcaption>
     <p class="info">  
       <ul>
-        <li>Education: PhD from IST Austria, and applied math MSc from Moscow State University</li>
-        <li> Current Status: Staff Researcher Engineer at Google DeepMind.</li>  
+        <li><b>Education:</b>  PhD from IST Austria, and applied math MSc from Moscow State University</li>
+        <li> <b>Current Status:</b> Staff Researcher Engineer at Google DeepMind.</li>  
       </ul>
     </p>
   </div>
   <div class="grid-item">
     <img src="images/authors/WhatsApp Image 2023-12-04 at 6.55.11 PM.jpeg" alt="Dirk Weissenborn">
-    <figcaption>Dirk Weissenborn</figcaption>
+    <figcaption style="font-weight: bold;"> Dirk Weissenborn</figcaption>
     <p class="info">  
       <ul>
-        <li>Education: PhD from the German Research Center for Artificial Intelligence, MS in Computer Science from Technische Universität Dresden</li>
-        <li>Work Experience: Worked as a research scientist at DeepMind, and Facebook in the past. </li>
-        <li>Current Status: Currently works as a technical staff member at Inceptive. </li>
+        <li><b>Education:</b>  PhD from the German Research Center for Artificial Intelligence, MS in Computer Science from Technische Universität Dresden</li>
+        <li><b>Work Experience:</b> Worked as a research scientist at DeepMind, and Facebook in the past. </li>
+        <li><b>Current Status:</b> Currently works as a technical staff member at Inceptive. </li>
       </ul>
     </p>
   </div>
   <div class="grid-item">
     <img src="images/authors/WhatsApp Image 2023-12-04 at 6.57.12 PM.jpeg" alt="Xiaohua Zhai">
-    <figcaption>Xiaohua Zhai</figcaption>
+    <figcaption style="font-weight: bold;"> Xiaohua Zhai</figcaption>
     <p class="info">  
       <ul>
-        <li>Education: B.S. degree in Computer Science and Technology from Nanjing University in 2009 and a Ph.D. degree in computer application from the Institute of Computer Science and Technology, Peking University</li>
-        <li>Work Experience: Senior Software Engineer at Google</li>
-        <li>Current Status: Senior Staff Researcher at Google DeepMind</li>
+        <li><b>Education:</b>  B.S. degree in Computer Science and Technology from Nanjing University in 2009 and a Ph.D. degree in computer application from the Institute of Computer Science and Technology, Peking University</li>
+        <li><b>Work Experience:</b> Senior Software Engineer at Google</li>
+        <li><b>Current Status:</b> Senior Staff Researcher at Google DeepMind</li>
 
       </ul>
     </p>
   </div>
   <div class="grid-item">
     <img src="images/authors/WhatsApp Image 2023-12-04 at 6.57.42 PM.jpeg" alt="Thomas Unterthiner">
-    <figcaption>Thomas Unterthiner</figcaption>
+    <figcaption style="font-weight: bold;"> Thomas Unterthiner</figcaption>
     <p class="info">  
       <ul>
-      <li>Education: BSc, MS, and PhD in Computer science from Johannes Kepler Universität Linz.</li> 
-      <li>Work Experience: Senior scientist at Johannes Kepler Universität Linz, Research assistant at the University of Gottingen. </li> 
-      <li>Current Status: Research software engineer at Google.</li>
+      <li><b>Education:</b>  BSc, MS, and PhD in Computer science from Johannes Kepler Universität Linz.</li> 
+      <li><b>Work Experience:</b> Senior scientist at Johannes Kepler Universität Linz, Research assistant at the University of Gottingen. </li> 
+      <li><b>Current Status:</b> Research software engineer at Google.</li>
       </ul>
     </p>
   </div>
   <div class="grid-item">
     <img src="images/authors/WhatsApp Image 2023-12-04 at 6.58.14 PM.jpeg" alt="Mostafa Dehghani">
-    <figcaption>Mostafa Dehghani</figcaption>
+    <figcaption style="font-weight: bold;"> Mostafa Dehghani</figcaption>
     <p class="info">  
       <ul>
-        <li>Education: PhD in Information Retrieval at the University of Amsterdam. </li>
-        <li>Work Experience: Research Intern at Google and Google Brain (2016-2017). </li>
-        <li>Current Status: Research Scientist at Google Brain, Amsterdam, working on advanced topics in machine learning and deep learning. </li>
+        <li><b>Education:</b>  PhD in Information Retrieval at the University of Amsterdam. </li>
+        <li><b>Work Experience:</b> Research Intern at Google and Google Brain (2016-2017). </li>
+        <li><b>Current Status:</b> Research Scientist at Google Brain, Amsterdam, working on advanced topics in machine learning and deep learning. </li>
       </ul>
     </p>
   </div>
   <div class="grid-item">
     <img src="images/authors/WhatsApp Image 2023-12-04 at 6.58.40 PM.jpeg" alt="Matthias Minderer">
-    <figcaption>Matthias Minderer</figcaption>
+    <figcaption style="font-weight: bold;"> Matthias Minderer</figcaption>
     <p class="info">  
       <ul>
-        <li>Education: Studied neuroscience at ETH Zürich.
+        <li><b>Education:</b>  Studied neuroscience at ETH Zürich.
           Studied biochemistry at the University of Cambridge.
           Ph.D. in Neuroscience from Harvard University
           </li>  
-        <li>Work Experience: Before joining Google, the author completed their Ph.D. at Harvard University, working on neuroscience-related topics.        </li>
-        <li>Current Status: Senior Research Scientist at Google Brain in Zürich, focusing on computer vision.</li>
+        <li><b>Work Experience:</b> Before joining Google, the author completed their Ph.D. at Harvard University, working on neuroscience-related topics.        </li>
+        <li><b>Current Status:</b> Senior Research Scientist at Google Brain in Zürich, focusing on computer vision.</li>
       </ul>
     </p>
 </div>
 <div class="grid-item">
   <img src="images/authors/WhatsApp Image 2023-12-04 at 6.59.15 PM.jpeg" alt="Georg Heigold">
-  <figcaption>Georg Heigold</figcaption>
+  <figcaption style="font-weight: bold;"> Georg Heigold</figcaption>
   <p class="info">  
     <ul>
-      <li>Education: Georg Heigold received a Diplom degree in physics from ETH Zurich, Switzerland, in 2000​​​​.</li>  
-      <li>Work Experience: From 2000 to 2003, he worked as a Software Engineer at De La Rue in Berne, Switzerland​​​​. He was part of the Computer Science Department at RWTH Aachen University, Aachen, from 2004 to 2010​​​​. Since 2010, he has been a Research Scientist at Google in Mountain View, CA​​​​​​​​. His research interests include automatic speech recognition, discriminative training, and log-linear modeling​​.</li>
-      <li>Current status: Currently works as an Engineer at Apple</li>
+      <li><b>Education:</b>  Georg Heigold received a Diplom degree in physics from ETH Zurich, Switzerland, in 2000​​​​.</li>  
+      <li><b>Work Experience:</b> From 2000 to 2003, he worked as a Software Engineer at De La Rue in Berne, Switzerland​​​​. He was part of the Computer Science Department at RWTH Aachen University, Aachen, from 2004 to 2010​​​​. Since 2010, he has been a Research Scientist at Google in Mountain View, CA​​​​​​​​. His research interests include automatic speech recognition, discriminative training, and log-linear modeling​​.</li>
+      <li><b>Current Status:</b> Currently works as an Engineer at Apple</li>
     </ul>
   </p>
 </div>
 <div class="grid-item">
   <img src="images/authors/WhatsApp Image 2023-12-04 at 6.59.41 PM.jpeg" alt="Sylvain Gelly">
-  <figcaption>Sylvain Gelly</figcaption>
+  <figcaption style="font-weight: bold;"> Sylvain Gelly</figcaption>
   <p class="info">  
     <ul>
-      <li>Education: Ph.D. in Computer Science, 2007, Paris-Sud 11 University.</li>
-      <li>Work Experience: Former member, Learning and Optimisation Group (A&O), Laboratoire de recherche en informatique (LRI), under the direction of Michèle Sebag and Nicolas Bredèche, Paris-Sud 11 University. Co-author of the top-level Go playing program "Mogo," known for using Monte-Carlo Tree Search with patterns in simulations and improvements in UCT.</li>
-      <li>Current Status: Deep Learning Researcher at Google Brain Zurich.
+      <li><b>Education:</b>  Ph.D. in Computer Science, 2007, Paris-Sud 11 University.</li>
+      <li><b>Work Experience:</b> Former member, Learning and Optimisation Group (A&O), Laboratoire de recherche en informatique (LRI), under the direction of Michèle Sebag and Nicolas Bredèche, Paris-Sud 11 University. Co-author of the top-level Go playing program "Mogo," known for using Monte-Carlo Tree Search with patterns in simulations and improvements in UCT.</li>
+      <li><b>Current Status:</b> Deep Learning Researcher at Google Brain Zurich.
         Co-author of OpenDP, a comprehensive framework for reinforcement learning, with a focus on dynamic programming. </li>            </ul>
   </p>
 
 </div>
 <div class="grid-item">
   <img src="images/authors/WhatsApp Image 2023-12-04 at 6.59.59 PM.jpeg" alt="Jakob Uszkoreit">
-  <figcaption>Jakob Uszkoreit</figcaption>
+  <figcaption style="font-weight: bold;"> Jakob Uszkoreit</figcaption>
   <p class="info">  
     <ul>
-      <li>Education: Master's degree in Computer Science and Mathematics from Technische Universität Berlin</li>
-      <li>Work Experience: Deep learning research at Google Brain. Development of the language understanding team for Google Assistant. Early development work on Google Translate </li>
-      <li>Current Status: ML and NLP researcher with a focus on language translation. Co-author of the seminal paper on transformer architecture, ‘Attention Is All You Need’. Co-founder of Inceptive, a company started in 2021 alongside Rhiju Das, focusing on using deep learning and high-throughput experiments to learn life's languages.</li>
+      <li><b>Education:</b>  Master's degree in Computer Science and Mathematics from Technische Universität Berlin</li>
+      <li><b>Work Experience:</b> Deep learning research at Google Brain. Development of the language understanding team for Google Assistant. Early development work on Google Translate </li>
+      <li><b>Current Status:</b> ML and NLP researcher with a focus on language translation. Co-author of the seminal paper on transformer architecture, ‘Attention Is All You Need’. Co-founder of Inceptive, a company started in 2021 alongside Rhiju Das, focusing on using deep learning and high-throughput experiments to learn life's languages.</li>
     </ul>
   </p>
 </div>
 <div class="grid-item">
   <img src="images/authors/WhatsApp Image 2023-12-04 at 7.03.39 PM.jpeg" alt="Neil Houlsby">
-  <figcaption>Neil Houlsby</figcaption>
+  <figcaption style="font-weight: bold;"> Neil Houlsby</figcaption>
   <p class="info">  
     <ul>
-      <li>Education: Master's Degree in Computer Science and Mathematics from Technische Universität Berlin.
+      <li><b>Education:</b>  Master's Degree in Computer Science and Mathematics from Technische Universität Berlin.
         Ph.D. from the Cambridge Computational and Biological Learning Laboratory, with a focus on Bayesian Machine Learning, active learning, and cognitive science.</li>
-      <li>Work Experience: Senior Research Scientist at Google Brain team in Zürich.</li>
-      <li>Current Status: Neil's current research focuses on Machine Learning, especially transfer learning, representation learning, Automated Machine Learning (AutoML), computer vision, and Natural Language Processing (NLP)</li>   
+      <li><b>Work Experience:</b> Senior Research Scientist at Google Brain team in Zürich.</li>
+      <li><b>Current Status:</b> Neil's current research focuses on Machine Learning, especially transfer learning, representation learning, Automated Machine Learning (AutoML), computer vision, and Natural Language Processing (NLP)</li>   
         
       </ul>
   </p>
@@ -270,12 +274,15 @@ This paper builds upon several key developments in the fields of natural languag
   The Transformer's architecture enables it to consider the entire image at once, as opposed to processing it piece-by-piece as in traditional convolutional neural networks (CNNs). This global processing capability allows for more complex inter-patch relationships and dependencies to be learned, which is particularly beneficial for image classification tasks. The output of the MLP head at the top is then used to classify the image into one of the classes, like "Bird," "Ball," "Car," etc
   </p>
   
-  <img src="images/Results.jpeg" alt="Attention Maps" style="width: auto; height: auto; max-width: 100%; max-height: 100%;">
+  <img src="images/Results.jpeg" alt="Results" style="width: auto; height: auto; max-width: 100%; max-height: 100%;">
   
   <p>
   The diagram above shows visualizations known as attention maps from the Vision Transformer model. These maps illustrate how the model focuses on different parts of an image when making decisions. Imagine an image divided into many small squares (patches); the colors in each map show which of these squares the model pays most attention to. Warmer colors like red indicate high attention, meaning those parts are considered more important by the model for recognizing what’s in the image. Different parts of the figure represent different aspects the model looks at, such as edges, textures, or specific objects. This helps us understand what the model finds important in an image and why it makes certain decisions.
   </p>
   
+  <div style="text-align: center;">
+    <img src="images/Attention maps.png" alt="Attention Maps" style="width: auto; height: auto; max-width: 100%; max-height: 100%;">
+  </div>
   <p>
   The significant result here is that this transformer model, called Vision Transformer (ViT), not only performs well but, in many cases, outperforms the existing state-of-the-art CNNs on image classification tasks, especially when trained on large-scale datasets. This finding is groundbreaking because it challenges the conventional approach to image recognition and opens up new possibilities for how we can understand and process visual information using machine learning models.
   </p>
