@@ -295,7 +295,7 @@ The Vision Transformer (ViT), as developed in this research, demonstrates remark
 </p>
 
 <p>
-
+  The Vision Transformer (ViT) and Convolutional Neural Networks (CNNs) exhibit different performance characteristics based on dataset size and quality, image resolution, computational resources, and pre-training requirements. ViTs tend to outshine CNNs when trained on very large and diverse datasets, benefiting significantly from the scale of data to learn more generalized features, whereas CNNs may not scale as effectively with dataset size. In terms of image resolution, ViTs effectively process high-resolution images by dividing them into patches and capturing global dependencies, a capability that CNNs might struggle with unless augmented by more complex or deeper architectures. However, this performance comes at the cost of computational resources; ViTs generally demand more intensive computational power for both training and inference compared to CNNs, potentially limiting their use in resource-constrained environments. Pre-training plays a crucial role in the effectiveness of ViTs, greatly enhancing their performance on varied datasets, a factor where CNNs also benefit but to a lesser degree. While ViTs have shown impressive results on large-scale, high-resolution image datasets, their superiority over CNNs is contingent upon these specific factors, including the nature and size of the dataset, available computational resources, and task-specific requirements.
 </p>
 
 <h2>Social Impact</h2>
@@ -447,10 +447,10 @@ The Vision Transformer (ViT), as developed in this research, demonstrates remark
     Dataset used - MNIST
   </li>
   <li>
-    Results - test accuracy of 76.84% on the MNIST dataset. The loss function plateaus around epochs 6-7.
+    Results - Test accuracy of 76.84% on the MNIST dataset. The loss function plateaus around epochs 6-7.
   </li>
   <li>
-    Low accuracy due to the small dataset used due to limited computational power. And because of the small dataset, we got lower accuracies compared to the paper. Hence, it proves that ViT only performs very well when a large dataset is provided which can often be unrealistic since not everyone has that much computational resource. 
+    The observed low accuracy in our experiments can be primarily attributed to the small size of the dataset utilized, a constraint imposed by our limited computational resources. The small dataset size hinders the model's ability to learn effectively, leading to reduced accuracies in comparison to those reported in the original paper. This outcome underscores a critical aspect of the Vision Transformer's (ViT) performance: it is highly dependent on the availability and utilization of large datasets for training. ViT models demonstrate significant improvements in accuracy and effectiveness when trained on extensive datasets, as they can learn more complex and nuanced patterns from the abundant data. However, this requirement for large-scale data poses a practical challenge, as access to such vast computational resources is not feasible for all researchers and practitioners. This limitation highlights a gap in the applicability of ViT, particularly in scenarios where resources are constrained, and emphasizes the need for further research to optimize these models for smaller datasets or to develop more resource-efficient training methods.
   </li>
 </ul>
 <div class="grid-container">
