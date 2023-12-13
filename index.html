@@ -309,53 +309,160 @@ The Vision Transformer (ViT), as developed in this research, demonstrates remark
 <li><b>Challenges:</b> However, the deployment of ViTs in a healthcare setting comes with its own set of challenges. Notably, the requirement for substantial computational resources to train and run ViTs could pose a barrier, as such resources may not be readily available in many medical facilities. The maintenance and operational costs associated with high-performance computing could also be prohibitive. Furthermore, ensuring the model's reliability across diverse, real-world medical data and its seamless integration into existing medical IT infrastructures remains a critical consideration for practical implementation. Lastly, there is the issue of bias and generalization. ViTs trained on limited or non-representative datasets may not perform well across different or broader medical scenarios, potentially leading to inaccurate diagnoses or perpetuating biases. Ensuring that models are trained on diverse and comprehensive datasets is critical to their success and ethical application in real-world medical diagnosis. </li>
 </ul>
 
-<h2>Follow-on Research</h2>
+<h2>Academic Research</h2>
 <h4>Scaling Vision Transformers </h4>
 <ul>
   <li>
-    <b>Gap Addressed by "Scaling Vision Transformers":</b> Enhances computational efficiency and practical applicability of Vision Transformers, crucial for large-scale image datasets and high-resolution applications, a gap not extensively covered in the original paper.  
+    <b>Advantages of Scaling Vision Transformers over ViT:</b> Enhances computational efficiency and practical applicability of Vision Transformers, crucial for large-scale image datasets and high-resolution applications, a gap not extensively covered in the original paper.  
   </li>
   <li>
-    <b>Necessity of "Scaling Vision Transformers": </b>Vital for broadening the use of Vision Transformers in diverse real-world scenarios and advancing the state-of-the-art in image recognition and computer vision technology.
+    <b>Necessity of Scaling Vision Transformers: </b>Vital for broadening the use of Vision Transformers in diverse real-world scenarios and advancing the state-of-the-art in image recognition and computer vision technology.
   </li>
   <li>
-    <b>Methodology Overview of "Scaling Vision Transformers":</b> Incorporates architectural innovations, adaptive processing techniques, extensive performance testing across varied datasets, utilization of advanced hardware accelerators, and interdisciplinary collaboration to optimize Vision Transformers for scalability and efficiency.
+    <b>Methodology Overview of Scaling Vision Transformers:</b> Incorporates architectural innovations, adaptive processing techniques, extensive performance testing across varied datasets, utilization of advanced hardware accelerators, and interdisciplinary collaboration to optimize Vision Transformers for scalability and efficiency.
   </li>
 </ul>
-<ul>
+
 <h4>Swin Transformer: Hierarchical Vision Transformer using Shifted Windows</h4>
+<ul>
   <li>
-    <b>
+    <b>Advantages of Swin Transformer over ViT:</b>
+      Swin Transformer efficiently manages varying scales of visual entities and is more adept at processing high-resolution images than ViT. Offers a scalable solution for different image sizes and resolutions, addressing the computational limitations of ViT in resource-constrained environments.      
   </li>
   <li>
-    <b>
+    <b>Necessity of Swin Transformer: </b>
+      Better suited for practical scenarios, such as medical imaging or satellite imagery, due to its hierarchical structure and efficient processing of diverse scales. Enhances model efficiency and sets new standards in computer vision tasks, making it more applicable for a wide range of uses.
   </li>
   <li>
-    <b>
+    <b> Swin Transformer Methodology: </b>
+      Utilizes a hierarchical structure with a novel shifted window approach for self-attention, reducing computational complexity and enabling cross-window connections. Scales linearly with image size, making it highly efficient for larger images, tested across various tasks like image classification, object detection, and semantic segmentation.
   </li>
 </ul>
 
-<p>Optionally, in addition to a reading-based analysis, implement the ideas of the paper in code, and report on your findings.
-</p>
 
-<h2>References</h2>
+<h2>Reviewer</h2>
+<h4>Rutuja Shah</h4>
+<ul>
+  <li><b>Score:</b> 8/10 </li>
+  <li><b>Strengths:</b>
+    <ol>
+      <li>
+        It demonstrates that the ViT can be effectively scaled with larger datasets, leading to improvements in performance over traditional CNNs.
+      </li>
+      <li>
+        The ViT achieves state-of-the-art results on multiple image recognition benchmarks, showing its potential to serve as a robust architecture for various image classification tasks.
+      </li>
+      <li>
+        The paper provides an extensive analysis of the model's internals, such as attention mechanisms and positional embeddings, providing insights into how ViTs process spatial information.
+      </li>
+    </ol>
+  </li>
+  <li><b>Weaknesses:</b>
+    <ol>
+      <li>
+        The training process for ViTs is resource-intensive, requiring significant computational power, especially when pre-training on large datasets.
+      </li>
+      <li>
+        The model's superior performance is heavily dependent on the availability of large-scale datasets for pre-training, which might not be feasible or available in all scenarios.
+      </li>
+      <li>
+        While the paper demonstrates impressive image classification results, it's less clear how well the Vision Transformer generalizes to other vision tasks, such as object detection or segmentation, without further modifications.
+      </li>
+    </ol>
+  </li>
+</ul>
 
-<p>
-  <a name="Vision transformers (ViT)">[1]</a> 
-  <a href="https://arxiv.org/abs/2010.11929">
-    Alexey Dosovitskiy, Lucas Beyer, Alexander Kolesnikov, Dirk Weissenborn, Xiaohua Zhai, Thomas Unterthiner, Mostafa Dehghani, Matthias Minderer, Georg Heigold, Sylvain Gelly, Jakob Uszkoreit, and Neil Houlsby.
-    <em>An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale.</em>
-  </a>
-  2021. arXiv:2010.11929 [cs.CV].
-</p>
+<h4>Swarnima Deshmukh</h4>
+<ul>
+  <li><b>Score:</b> 8/10 </li>
+  <li><b>Strengths:</b>
+    <ol>
+      <li>
+        The paper introduces a novel application of Transformer models, traditionally used in NLP, to the field of image recognition, which is a significant leap in cross-disciplinary innovation.
+      </li>
+      <li>
+        The paper opens up possibilities for effective transfer learning from pre-trained models, which can be beneficial in a variety of image recognition applications beyond those explicitly tested.
+      </li>
+    </ol>
+  </li>
 
+  <li><b>Weaknesses:</b>
+    <ol>
+      <li>
+        Unlike CNNs, which inherently leverage spatial hierarchies due to their convolutional nature, ViTs lack these inductive biases, which can be both a strength and a weakness. This means ViTs might require more data to learn patterns that CNNs can learn with less data.
+      </li>
+      <li>
+        Despite providing some insight into the model's attention mechanism, understanding the exact workings and decision-making process within ViTs can still be challenging, making interpretability and debugging complex.
+      </li>
+    </ol>
+  </li>
+</ul>
 
+<h4>Dachuan Zhang</h4>
+<ul>
+  <li><b>Score:</b></li>
+  <li><b>Strengths:</b>
+    <ol>
+      <li>
+        
+      </li>
+      <li>
+       
+      </li>
+      <li>
+        
+      </li>
+    </ol>
+  </li>
+  <li><b>Weaknesses:</b>
+    <ol>
+      <li>
+        
+      </li>
+      <li>
+        
+      </li>
+      <li>
+        
+      </li>
+    </ol>
+  </li>
+</ul>
 
 <h2>Team Members</h2>
                                                    
 <p>Rutuja Shah, Swarnima Deshmukh, Dachuan Zhang</p>
 
-  
+<h2>References</h2>
+
+<ol>
+  <li><a name="Vision transformers (ViT)"></a> 
+  <a href="https://arxiv.org/abs/2010.11929">
+    Alexey Dosovitskiy, Lucas Beyer, Alexander Kolesnikov, Dirk Weissenborn, Xiaohua Zhai, Thomas Unterthiner, Mostafa Dehghani, Matthias Minderer, Georg Heigold, Sylvain Gelly, Jakob Uszkoreit, and Neil Houlsby.
+    <em>An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale.</em>
+  </a>
+  2021. arXiv:2010.11929 [cs.CV].
+  </li>
+
+  <li>
+  <a name="Scaling Vision Transformers (SVT)"></a> 
+  <a href="https://arxiv.org/abs/2106.04560">
+    Xiaohua Zhai, Alexander Kolesnikov, Neil Houlsby, and Lucas Beyer.
+    <em>Scaling Vision Transformers.</em>
+  </a>
+  2022. arXiv:2106.04560 [cs.CV].
+  </li>
+
+  <li>
+  <a name="Swin Transformer (ST)"></a> 
+  <a href="https://arxiv.org/abs/2103.14030">
+    Ze Liu, Yutong Lin, Yue Cao, Han Hu, Yixuan Wei, Zheng Zhang, Stephen Lin, and Baining Guo.
+    <em>Swin Transformer: Hierarchical Vision Transformer using Shifted Windows.</em>
+  </a>
+  2021. arXiv:2103.14030 [cs.CV].
+  </li>
+</ol>
+
 </div><!--col-->
 </div><!--row -->
 </div> <!-- container -->
