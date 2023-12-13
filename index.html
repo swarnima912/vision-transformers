@@ -234,8 +234,7 @@ The Vision Transformer (ViT), as developed in this research, demonstrates remark
       <li><b>Education:</b>  Master's Degree in Computer Science and Mathematics from Technische Universität Berlin.
         Ph.D. from the Cambridge Computational and Biological Learning Laboratory, with a focus on Bayesian Machine Learning, active learning, and cognitive science.</li>
       <li><b>Work Experience:</b> Senior Research Scientist at Google Brain team in Zürich.</li>
-      <li><b>Current Status:</b> Neil's current research focuses on Machine Learning, especially transfer learning, representation learning, Automated Machine Learning (AutoML), computer vision, and Natural Language Processing (NLP)</li>   
-        
+      <li><b>Current Status:</b> Neil's current research focuses on Machine Learning, especially transfer learning, representation learning, Automated Machine Learning (AutoML), computer vision, and Natural Language Processing (NLP)</li>      
       </ul>
   </p>
   </div>
@@ -243,6 +242,7 @@ The Vision Transformer (ViT), as developed in this research, demonstrates remark
 
 
 <h2>Methodology</h2>
+<h3>Main Concept</h3>
 
 <img src="images/ViT.jpeg", alt = "ViT" style="width: auto; height: auto; max-width: 100%; max-height: 100%;">
 <p>
@@ -279,6 +279,24 @@ The Vision Transformer (ViT), as developed in this research, demonstrates remark
   <div style="text-align: center;">
     <img src="images/Attention maps.png" alt="Attention Maps" style="width: auto; height: auto; max-width: 100%; max-height: 100%;">
   </div>
+
+<h3>Results and Discussion</h3>
+
+<img src="images/Results_1.png" alt="Results" style="width: auto; height: auto; max-width: 100%; max-height: 100%;">
+
+<p>
+  Now coming to the discussions of the results presented by the paper. Table 2 and Figure 2, ViT models, particularly when pre-trained on the large-scale JFT-300M dataset, show superior performance on various image classification benchmarks compared to traditional convolutional networks (CNNs) like ResNet and even newer architectures like EfficientNet (as seen in the Noisy Student training). This is evident in benchmarks like ImageNet, CIFAR-10/100, and the more diverse VTAB suite. The tables also demonstrate that ViTs, while more computationally intensive during pre-training (as shown by the TPUv3-core-days), can achieve high accuracy with less computational resources compared to the models pre-trained on ImageNet-21k.
+</p>
+
+<img src="images/Results_2.png" alt="Results" style="width: auto; height: auto; max-width: 100%; max-height: 100%;">
+
+<p>
+  Figures 3, 4, and 5 collectively illustrate the scaling capabilities and efficiency of ViTs. Figure 3 highlights that larger ViT models outperform ResNet architectures, especially when trained on larger datasets. Figure 4 showcases the linear relationship between the number of pre-training samples from the JFT dataset and the accuracy in a few-shot evaluation setting, with ViTs surpassing ResNets as the dataset size increases. Figure 5 then compares the transfer accuracy of ViTs, ResNets, and hybrid models with the computational resources used for pre-training, showing that ViTs generally provide better performance per unit of computation, especially at larger scales.
+</p>
+
+<p>
+
+</p>
 
 <h2>Social Impact</h2>
 <h4>Potential Positive Societal Impacts</h4>
@@ -400,34 +418,54 @@ The Vision Transformer (ViT), as developed in this research, demonstrates remark
 
 <h4>Dachuan Zhang</h4>
 <ul>
-  <li><b>Score:</b></li>
+  <li><b>Score: </b>8/10</li>
   <li><b>Strengths:</b>
     <ol>
       <li>
-        
+        The Vision Transformer (ViT), introduced in "An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale," represents a significant shift in image recognition, adapting the transformer architecture to computer vision.
       </li>
       <li>
-       
-      </li>
-      <li>
-        
+        Its key strengths include exceptional scalability with dataset size, simplification over conventional CNN architectures, state-of-the-art performance on large datasets, and efficient transfer learning capabilities.
       </li>
     </ol>
   </li>
   <li><b>Weaknesses:</b>
     <ol>
       <li>
-        
+        However, ViT's reliance on massive training datasets for optimal performance presents a considerable challenge, especially in terms of the computational resources required, which may not be feasible for all applications.
       </li>
       <li>
-        
-      </li>
-      <li>
-        
+        Additionally, its reduced inductive biases necessitate more extensive data to learn inherent image features, potentially leading to overfitting on smaller datasets and posing interpretability challenges, limiting its applicability in scenarios where explainability is essential.
       </li>
     </ol>
   </li>
 </ul>
+
+<h2>Code Implementation</h2>
+<ul>
+  <li>
+    Dataset used - MNIST
+  </li>
+  <li>
+    Pipeline/methodology - The process starts by dividing images into patches, and then mapping the embedding to the hidden size dimension. After that, we add positional embedding and transformer blocks.
+  </li>
+  <li>
+    Results - test accuracy of 76.84% on the MNIST dataset. The loss function plateaus around epochs 6-7.
+  </li>
+  <li>
+    Compare to the paper's results - any surprises or new insights? Answer: Yes, low accuracy due to the small dataset used due to limited computational power. And because of the small dataset, we got lower accuracies compared to the paper. Hence, it proves that ViT only performs very well when a large dataset is provided which can often be unrealistic since not everyone has that much computational resource. 
+  </li>
+</ul>
+<div class="grid-container">
+  <div class="grid-item">
+    <img src="images/loss_vs_epoch.png", alt = "Loss vs Epochs">
+  </div>
+
+  <div class="grid-item">
+    <img src="images/First_patch.png", alt = "First Patch embedding">
+  </div>
+</div>
+
 
 <h2>Team Members</h2>
                                                    
